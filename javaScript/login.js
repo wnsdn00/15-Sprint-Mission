@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const emailValue = emailInput.value.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if(emailValue === "") {
-      showError("이메일을 입력해주세요.");
-    } else if(!emailPattern.test(emailValue)) {
-      showError("잘못된 이메일 형식입니다.");
+    if (emailValue === "") {
+      showError(emailInput, emailError, "이메일을 입력해주세요.");
+    } else if (!emailPattern.test(emailValue)) {
+      showError(emailInput, emailError, "잘못된 이메일 형식입니다.");
     } else {
-      hideError();
+      hideError(emailInput, emailError);
     }
   });
 
@@ -24,23 +24,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const passwordValue = passwordInput.value.trim();
 
     if (passwordValue === "") {
-      showError("비밀번호를 입력해주세요.");
+      showError(passwordInput, passwordError, "비밀번호를 입력해주세요.");
     } else if (passwordValue.length < 8) {
-      showError("비밀번호를 8자 이상 입력해주세요.");
+      showError(passwordInput, passwordError, "비밀번호를 8자 이상 입력해주세요.");
     } else {
       hideError(passwordInput, passwordError);
     }
   });
 
-  function showError(message) {
-    emailInput.classList.add("input-error");
-    emailError.textContent = message;
-    emailError.style.display = "block";
+  function showError(inputElement, errorElement, message) {
+    inputElement.classList.add("input-error");
+    errorElement.textContent = message;
+    errorElement.style.display = "block";
   }
 
-  function hideError() {
-    emailInput.classList.remove("input-error");
-    emailError.textContent = "";
-    emailError.style.display = "none";
+  function hideError(inputElement, errorElement) {
+    inputElement.classList.remove("input-error");
+    errorElement.textContent = "";
+    errorElement.style.display = "none";
   }
 });
