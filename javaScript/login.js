@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const passwordInput = document.getElementById("password");
   const passwordError = document.getElementById("password-error");
+  const togglePasswordBtn = document.querySelector(".toggle-btn");
 
   const loginButton = document.querySelector(".login-btn");
 
@@ -11,11 +12,24 @@ document.addEventListener("DOMContentLoaded", function() {
   emailInput.addEventListener("focusout", validateForm);
   passwordInput.addEventListener("focusout", validateForm);
 
+  /* 눈 아이콘 클릭 시 비밀번호 표시 및 숨기기 */
+  togglePasswordBtn.addEventListener("click", function() {
+    
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      togglePasswordBtn.src = "./images/open_eye.png";
+    } else {
+      passwordInput.type = "password";
+      togglePasswordBtn.src = "./images/close_eye.png";
+    }
+  });
+
+  /* 로그인을 위한 유효성 검증 */
   function validateForm() {
     let isValid = true;
 
   /* 이메일 유효성 검증 */
-  const emailValue = emailInput.value.trim();
+    const emailValue = emailInput.value.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailValue === "") {
