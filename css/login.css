@@ -61,6 +61,17 @@ body {
   background-color: #F3F4F6;
 }
 
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  margin-right: -23px;
+}
+
 .input-error {
   border: 1px solid #F74747 !important;
 }
@@ -71,17 +82,6 @@ body {
   text-align: left;
   font-size: 12px;
   margin-top: 5px;
-}
-
-.password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.password-wrapper input {
-  width: 100%;
-  margin-right: -23px;
 }
 
 .password-wrapper .toggle-btn {
