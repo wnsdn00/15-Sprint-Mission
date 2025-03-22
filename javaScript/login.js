@@ -5,32 +5,45 @@ document.addEventListener("DOMContentLoaded", function() {
   const passwordInput = document.getElementById("password");
   const passwordError = document.getElementById("password-error");
 
+  const loginButton = document.querySelector(".login-btn");
+
+  /* 이메일과 비밀번호 동시 유효성 검증 */
+  emailInput.addEventListener("focusout", validateForm);
+  passwordInput.addEventListener("focusout", validateForm);
+
+  function validateForm() {
+    let isValid = true;
+
   /* 이메일 유효성 검증 */
-  emailInput.addEventListener("focusout", function() {
-    const emailValue = emailInput.value.trim();
+  const emailValue = emailInput.value.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailValue === "") {
       showError(emailInput, emailError, "이메일을 입력해주세요.");
+      isValid = false;
     } else if (!emailPattern.test(emailValue)) {
       showError(emailInput, emailError, "잘못된 이메일 형식입니다.");
+      isValid = false;
     } else {
       hideError(emailInput, emailError);
     }
-  });
 
   /* 비밀번호 유효성 검증 */
-  passwordInput.addEventListener("focusout", function() {
-    const passwordValue = passwordInput.value.trim();
+  const passwordValue = passwordInput.value.trim();
 
     if (passwordValue === "") {
       showError(passwordInput, passwordError, "비밀번호를 입력해주세요.");
+      isValid = false;
     } else if (passwordValue.length < 8) {
       showError(passwordInput, passwordError, "비밀번호를 8자 이상 입력해주세요.");
+      isValid = false;
     } else {
       hideError(passwordInput, passwordError);
     }
-  });
+
+    /* 동시 유효성 검증 완료 시 로그인 버튼 활성화*/
+    loginButton.disabled = !isValid;
+  }
 
   function showError(inputElement, errorElement, message) {
     inputElement.classList.add("input-error");
@@ -43,4 +56,14 @@ document.addEventListener("DOMContentLoaded", function() {
     errorElement.textContent = "";
     errorElement.style.display = "none";
   }
+
+  /* 로그인 버튼 클릭 시 페이지 이동 */
+  loginButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (!loginButton.disabled) {
+      window.location.href = "/items";
+    }
+  });
+
+  loginButton.disabled = true;
 });
